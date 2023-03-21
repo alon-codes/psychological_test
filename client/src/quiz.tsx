@@ -1,60 +1,74 @@
-import React, { useState } from 'react';
-import { Typography, Container, Grid, List, ListItem, ListItemButton, Button } from '@mui/material';
+import React from 'react';
+import { Typography, Container, Grid, List, ListItemButton, Button, Stack } from '@mui/material';
 import { indexToLetter } from './utils';
-
-interface AnswerType {
-    id: string;
-    text: string;
-}
-
-interface QuestionType {
-    id: string;
-    title: String;
-    answers: AnswerType [];
-}
-
-const questions: Array<QuestionType> = [
-    {
-        id: "random_q1",
-        title: "You`re really busy at work and a colleague is telling you their life story and personal woes. You:",
-        answers: [
-            {
-                id: "random_q1_a1",
-                text: "Don`t dare to interrupt them"
-            },
-            {
-                id: "random_q1_a2",
-                text: "Think it`s more important to give them some of your time; work can wait"
-            },
-            {
-                id: "random_q1_a3",
-                text: "Listen, but with only with half an ear"
-            },
-            {
-                id: "random_q1_a4",
-                text: "Interrupt and explain that you are really busy at the moment"
-            }
-        ]
-    }
-]
+import { useRecoilState, useRecoilValue } from 'recoil';
+import { currentQuestionSelector, questionIndexState, questionsState, replies } from './state/quiz-data';
+import { useNavigate } from "react-router-dom";
+import Header from './header';
 
 export default function Quiz(){
-    const [ currentQuestion, setCurrentQuestion ] = useState<QuestionType>(questions[0]);
-    const [ selectedAnswer, setSelectedAnswer ] = useState<AnswerType>();
+    const questions = useRecoilValue(questionsState);
+    const currentQuestion = useRecoilValue<QuestionType>(currentQuestionSelector);
+    const [ currentIndex, setCurrentIndex ] = useRecoilState<number>(questionIndexState);
+    const [currentReply, setCurrentReply] = useRecoilState(replies(currentQuestion.id));
+    const navigate = useNavigate();
+
+    const nextQuestion = () => {
+        if(currentIndex + 1 < questions.length){
+            setCurrentIndex(currentIndex + 1);
+        } else {
+            // TODO - handle submit
+        }
+    };
+
+    const prevQuestion = () => {
+        if(currentIndex - 1 > -1){
+            setCurrentIndex(currentIndex - 1);
+        } else {
+            // TODO - handle submit
+        }
+    };
+
+    const changeReply = (ans: AnswerType) => {
+        setCurrentReply({
+            selected_answer_id: ans.id,
+            question_id: currentQuestion.id
+        })
+    }
+
+    const submitQuiz = () => {
+        navigate('/score');
+    }
 
     return (
-        <Container maxWidth="md">
+        <Grid container>
             <Typography sx={{ paddingY: 3}} variant="h5">
                 {currentQuestion?.title}
             </Typography>
-            <List>
+            <List sx={{ width: "100%"}}>
                 {currentQuestion.answers.map((currentAnswer, index) => (
-                    <ListItemButton selected={selectedAnswer?.id === currentAnswer.id} onClick={e => setSelectedAnswer(currentAnswer)} key={currentAnswer.id}>
-                        <Button size="small" disableRipple disableTouchRipple color="info" variant="outlined">{indexToLetter(index)}</Button>
+                    <ListItemButton disableRipple selected={currentReply.selected_answer_id === currentAnswer.id} onClick={e => changeReply(currentAnswer)} key={currentAnswer.id}>
+                        <Button size="small" disableRipple disableTouchRipple color="info" variant={currentReply.selected_answer_id !== currentAnswer.id ? "outlined" : "contained" }>{indexToLetter(index)}</Button>
                         <Typography px={2} py={2} my={2} variant="body2">{currentAnswer.text}</Typography>
                     </ListItemButton>
                 ))}
             </List>
-        </Container>
+            <Container maxWidth="md" sx={{ paddingY: 2, position: 'fixed', bottom: 0, justifyContent: "space-between", display: "flex"}}>
+                {currentIndex > 0 && (
+                    <Button onClick={e => prevQuestion()} variant="text">Prev question</Button>
+                )}
+                {currentIndex !== questions.length - 1 ? (
+                    <Button disabled={!currentReply.selected_answer_id} fullWidth={currentIndex === 0} onClick={e => nextQuestion()} variant="text">
+                        Next question
+                    </Button>
+                ) : (
+                    <Button fullWidth={currentIndex === 0} onClick={e => submitQuiz()} variant="text">
+                        Submit
+                    </Button>
+                )}
+                
+            </Container>
+            
+        </Grid>
     )
 }
