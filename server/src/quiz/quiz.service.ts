@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import seed_data from 'src/seed-data';
 import { Db, Repository } from 'typeorm';
@@ -8,13 +8,18 @@ import { AnswerEntity } from './entities/answer.entity';
 import { QuestionEntity } from './entities/question.entity';
 
 @Injectable()
-export class QuizService {
+export class QuizService  implements OnModuleInit {
   constructor(
     @InjectRepository(QuestionEntity)
     private questionRepository: Repository<QuestionEntity>,
     @InjectRepository(AnswerEntity)
     private answerRepository: Repository<AnswerEntity>,
   ) {}
+
+
+  async onModuleInit() {
+    await this.questionRepository.save(seed_data);
+  }
 
   async create(createQuestionDto: CreateQuestionDto) {
     const brand_answers = await this.answerRepository.save(
