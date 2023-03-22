@@ -1,10 +1,10 @@
 import React from 'react';
 import { Typography, Container, Grid, List, ListItemButton, Button, Stack } from '@mui/material';
-import { indexToLetter } from './utils';
+import { indexToLetter } from '../utils';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { currentQuestionSelector, questionIndexState, questionsState, replies } from './state/quiz-data';
+import { currentQuestionSelector, questionIndexState, questionsState, replies } from '../state/quiz-data';
 import { useNavigate } from "react-router-dom";
-import Header from './header';
+import Header from '../header';
 
 export default function Quiz(){
     const questions = useRecoilValue(questionsState);
