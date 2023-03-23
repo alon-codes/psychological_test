@@ -1,6 +1,6 @@
-# How to run
+# How to run locally
 
-## React Vite app .env
+## React Vite app
 Create `.env` file in client folder
 `SERVER_URL=localhost:3000`
 
