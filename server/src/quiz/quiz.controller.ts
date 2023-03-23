@@ -83,9 +83,9 @@ export class QuizController {
     } else if (relativeScore > 0.3 && relativeScore <= 0.6) {
       desc = 'ambivert';
     } else if (relativeScore > 0.6) {
-      desc = 'extraverted';
+      desc = 'extroverted';
     }
 
-    return { score: desc, numeric: score };
+    return { score: desc, numeric: relativeScore };
   }
 }

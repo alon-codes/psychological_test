@@ -1,8 +1,4 @@
-import { Injectable, OnModuleInit } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { QuestionEntity } from './quiz/entities/question.entity';
-import seed_data from './seed-data';
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class AppService {

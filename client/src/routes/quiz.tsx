@@ -90,7 +90,7 @@ export default function Quiz() {
                     </ListItemButton>
                 ))}
             </List>
-            <Container maxWidth="md" sx={{ paddingY: 2, position: 'fixed', bottom: 0, justifyContent: "space-between", display: "flex" }}>
+            <Container maxWidth="md" sx={{ paddingY: 2, position: 'sticky', bottom: 0, justifyContent: "space-around", alignItems: "flex-end", display: "flex" }}>
                 {currentIndex > 0 && (
                     <Button onClick={e => prevQuestion()} variant="text">Prev question</Button>
                 )}
