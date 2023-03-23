@@ -1,7 +1,7 @@
 import { DeepPartial } from 'typeorm';
 import { QuestionEntity } from './quiz/entities/question.entity';
 
-const seed_data: Array<DeepPartial<QuestionEntity>> = [
+export const seed_data: Array<DeepPartial<QuestionEntity>> = [
   {
     title: 'When you`re at a party, how do you feel?',
     options: [
@@ -131,5 +131,3 @@ const seed_data: Array<DeepPartial<QuestionEntity>> = [
     ],
   },
 ];
-
-export default seed_data;

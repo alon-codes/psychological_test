@@ -1,6 +1,6 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import seed_data from 'src/seed-data';
+import { seed_data } from '../seed-data';
 import { Db, Repository } from 'typeorm';
 import { CreateQuestionDto } from './dto/create-question.dto';
 import { UpdateQuestionDto } from './dto/update-question.dto';
@@ -23,7 +23,7 @@ export class QuizService  implements OnModuleInit {
 
   async create(createQuestionDto: CreateQuestionDto) {
     const brand_answers = await this.answerRepository.save(
-      createQuestionDto.answers,
+      createQuestionDto.options,
     );
     console.log({ brand_answers });
 

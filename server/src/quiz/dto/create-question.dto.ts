@@ -7,11 +7,11 @@ export class CreateQuestionDto {
   @IsNotEmpty()
   @MinLength(1)
   @ApiProperty()
-  readonly  title: string;
+  readonly title: string;
 
   @ApiProperty({
     type: CreateAnswerDto,
     isArray: true,
   })
-  readonly answers: Array<CreateAnswerDto>;
+  readonly options: Array<CreateAnswerDto>;
 }
