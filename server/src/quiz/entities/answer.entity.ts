@@ -26,7 +26,9 @@ export class AnswerEntity extends BaseEntity {
   @Column()
   points: number;
 
-  @ManyToOne((t) => QuestionEntity, (t) => t.id, { nullable: true })
+  @ManyToOne((t) => QuestionEntity, (t) => t.id, {
+    nullable: true,
+  })
   @JoinColumn({ name: 'options' })
   question?: QuestionEntity;
 }

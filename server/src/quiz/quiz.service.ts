@@ -47,14 +47,19 @@ export class QuizService  implements OnModuleInit {
 
   async getAnswer(id: string) {
     return await this.answerRepository.findOne({
-      where: { id },
+      where: { id: id }
     });
   }
 
   async getQuestionById(id: string) {
-    return await this.questionRepository.findOne({
+    const res = await this.questionRepository.findOne({
       where: { id },
+      relations: {
+        options: true
+      }
     });
+    console.log({ res });
+    return res;
   }
 
   async update(id: string, updateQuestionDto: UpdateQuestionDto) {

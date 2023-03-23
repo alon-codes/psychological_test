@@ -12,9 +12,9 @@ declare global {
     }
     
     interface QuestionType {
-        id: string;
-         title: String;
-        answers: AnswerType [];
+        id?: string;
+        title: String;
+        options?: AnswerType [];
     }
 
     interface ResultResponseType {

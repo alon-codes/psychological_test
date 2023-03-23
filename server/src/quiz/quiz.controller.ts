@@ -54,27 +54,38 @@ export class QuizController {
   @Post('submit')
   async submitQuiz(@Body() submitQuizDto: SubmitQuizDto) {
     let score = 0;
+    let quizTotalSum = 0;
+
     if (!!submitQuizDto.replies) {
       for (const currentReply of submitQuizDto.replies) {
         const currentAnswer = await this.questionService.getAnswer(
-          currentReply.answer_id,
+          currentReply.selected_answer_id,
+        );
+        const currentQuestion = await this.questionService.getQuestionById(
+          currentReply.question_id,
         );
         score += currentAnswer.points;
+        console.log({ currentAnswer });
+        quizTotalSum += currentQuestion.options.length || 0;
       }
     }
 
-    let desc;
+    console.log({ score });
 
-    if (score > 0 && score <= 4) {
-      desc = 'highly_introverted';
-    } else if (score >= 5 && score <= 9) {
-      desc = 'moderately_introverted';
-    } else if (score >= 10 && score <= 14) {
-      desc = 'moderately_extraverted';
-    } else if (score >= 15 && score <= 19) {
-      desc = 'moderately_extraverted';
+    let desc = 'test';
+
+    const relativeScore = score / quizTotalSum;
+
+    console.log({ relativeScore, quizTotalSum });
+
+    if (relativeScore <= 0.3) {
+      desc = 'introverted';
+    } else if (relativeScore > 0.3 && relativeScore <= 0.6) {
+      desc = 'ambivert';
+    } else if (relativeScore > 0.6) {
+      desc = 'extraverted';
     }
 
-    return { score: desc };
+    return { score: desc, numeric: score };
   }
 }

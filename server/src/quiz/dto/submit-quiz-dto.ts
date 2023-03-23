@@ -12,7 +12,7 @@ class Reply {
   @IsNotEmpty()
   @MinLength(5)
   @ApiProperty()
-  readonly answer_id: string;
+  readonly selected_answer_id: string;
 }
 
 export class SubmitQuizDto {
