@@ -16,9 +16,12 @@
                 "PUT",
                 "DELETE"
             ],
-            "headers": {
-                "Access-Control-Allow-Origin": "https://psychological-test-react-client.vercel.app/"
-            }
+            "headers": [
+                {
+                    "key": "Access-Control-Allow-Origin",
+                    "value": "https://psychological-test-react-client.vercel.app/"
+                }
+            ]
         }
     ]
 }
