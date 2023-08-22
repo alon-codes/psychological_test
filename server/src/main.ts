@@ -13,7 +13,7 @@ async function bootstrap() {
 
   app.enableCors({
     allowedHeaders: 'origin, content-type, accept, application/json',
-    origin: 'https://psychological-test-react-client.vercel.app',
+    origin: ['https://psychological-test-react-client.vercel.app'],
     secure: true,
     sameSite: 'none'
   });
