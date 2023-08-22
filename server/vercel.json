@@ -19,7 +19,7 @@
             "headers": [
                 {
                     "key": "Access-Control-Allow-Origin",
-                    "value": "https://psychological-test-react-client.vercel.app/"
+                    "value": "https://psychological-test-react-client.vercel.app"
                 },
                 {
                   "key": "Access-Control-Allow-Headers",
