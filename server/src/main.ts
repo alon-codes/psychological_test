@@ -17,6 +17,10 @@ async function bootstrap() {
     secure: true,
     exposedHeaders: ['Content-Range', 'X-Content-Range', 'Access-Control-Allow-Origin']
   });
+
+  app.options('/*', (_, res) => {
+      res.sendStatus(200);
+  });
   
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
