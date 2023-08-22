@@ -19,7 +19,7 @@
         "DELETE"
       ],
       "headers": {
-        "Access-Control-Allow-Origin": "https://psychological-test-react-client.vercel.app/"
+        "Access-Control-Allow-Origin": "*"
       }
     }
   ]
