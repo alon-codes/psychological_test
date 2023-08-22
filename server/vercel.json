@@ -20,6 +20,14 @@
                 {
                     "key": "Access-Control-Allow-Origin",
                     "value": "https://psychological-test-react-client.vercel.app/"
+                },
+                {
+                  "key": "Access-Control-Allow-Headers",
+                  "value": "X-Requested-With, Access-Control-Allow-Origin, X-HTTP-Method-Override, Content-Type, Authorization, Accept"
+                },
+                {
+                  "key": "Access-Control-Allow-Credentials",
+                  "value": "true"
                 }
             ]
         }
