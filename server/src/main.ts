@@ -12,8 +12,10 @@ async function bootstrap() {
     .build();
 
   app.enableCors({
-    allowedHeaders: '*',
-    origin: '*',
+    allowedHeaders: 'origin, content-type, accept, application/json',
+    origin: 'https://psychological-test-react-client.vercel.app',
+    secure: true,
+    sameSite: 'none'
   });
   
   const document = SwaggerModule.createDocument(app, config);
