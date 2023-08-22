@@ -16,7 +16,8 @@ async function bootstrap() {
     allowedHeaders: 'origin, content-type, accept, application/json',
     origin: ['https://psychological-test-react-client.vercel.app'],
     secure: true,
-    sameSite: 'none'
+    sameSite: 'none',
+    preflightContinue: false
   });
   
   const document = SwaggerModule.createDocument(app, config);
