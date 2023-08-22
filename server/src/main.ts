@@ -5,6 +5,10 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
+  app.options('/*', (_, res) => {
+      res.sendStatus(200);
+  });
+
   const config = new DocumentBuilder()
     .setTitle('Quiz API documention')
     .setDescription('Quiz API documention')
@@ -17,10 +21,6 @@ async function bootstrap() {
     secure: true,
     preflightContinue: true,
     exposedHeaders: ['Content-Range', 'X-Content-Range', 'Access-Control-Allow-Origin']
-  });
-
-  app.options('/*', (_, res) => {
-      res.sendStatus(200);
   });
   
   const document = SwaggerModule.createDocument(app, config);
