@@ -32,7 +32,7 @@ export default function Score() {
         const fetchData = async () => {
             if (!!replies.length) {
                 try {
-                    const { data } = await axios.post(import.meta.env.VITE_SERVER_URL + '/quiz/submit', {
+                    const { data } = await axios.post(import.meta.env.VITE_SERVER_URL + '/quiz/submit/', {
                         replies
                     });
 
