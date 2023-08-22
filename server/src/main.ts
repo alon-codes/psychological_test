@@ -15,8 +15,6 @@ async function bootstrap() {
     methods: ['GET', 'PUT', 'POST', 'PATCH', 'OPTIONS', 'DELETE'],
     origin: ['https://psychological-test-react-client.vercel.app'],
     secure: true,
-    sameSite: 'none',
-    preflightContinue: false,
     exposedHeaders: ['Content-Range', 'X-Content-Range', 'Access-Control-Allow-Origin']
   });
   
