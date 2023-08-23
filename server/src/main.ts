@@ -12,7 +12,7 @@ async function bootstrap() {
     .build();
 
   app.enableCors({
-    //methods: ['GET', 'PUT', 'POST', 'PATCH', 'OPTIONS', 'HEAD'],
+    methods: ['GET', 'PUT', 'POST', 'PATCH', 'OPTIONS', 'HEAD'],
     origin: ['https://psychological-test-react-client.vercel.app'],
     preflightContinue: true,
   });
