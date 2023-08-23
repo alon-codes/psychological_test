@@ -6,9 +6,9 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule, {
     cors: {
       methods: ['GET', 'PUT', 'POST', 'PATCH', 'OPTIONS'],
-      origin: true,
+      origin: 'https://psychological-test-react-client.vercel.app',
       allowedHeaders: '*',
-      optionsSuccessStatus: 200
+      optionsSuccessStatus: 200,
     }
   });
 
