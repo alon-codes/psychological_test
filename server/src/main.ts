@@ -13,7 +13,7 @@ async function bootstrap() {
 
   app.enableCors({
     methods: ['GET', 'PUT', 'POST', 'PATCH', 'OPTIONS', 'HEAD'],
-    origin: true,
+    origin: '*',
     preflightContinue: true,
   });
 
