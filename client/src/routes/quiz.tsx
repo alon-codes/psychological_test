@@ -1,10 +1,11 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Typography, Container, Grid, List, ListItemButton, Button, Stack, Box } from '@mui/material';
 import { indexToLetter } from '../utils';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { currentQuestionSelector, questionIndexState, questionsState, repliesIdsState, repliesState } from '../state/quiz-data';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
+import LinearBuffer from '../linear-buffer';
 
 export default function Quiz() {
     const [questions, setQuestions] = useRecoilState(questionsState);
@@ -15,14 +16,18 @@ export default function Quiz() {
     const navigate = useNavigate();
     const [repliesIds, setIds] = useRecoilState(repliesIdsState);
 
+    const [isLoading, setLoading] = useState<boolean>(false);
+
     useEffect(() => {
         async function fetchQuestions() {
             try {
+                setLoading(true);
                 const resposne = await axios.get(import.meta.env.VITE_SERVER_URL + "/quiz/");
                 console.log({ resposne });
                 if (!!resposne.data) {
                     setQuestions(resposne.data)
                 }
+                setLoading(false);
             }
             catch (e) {
 
@@ -64,7 +69,7 @@ export default function Quiz() {
         navigate('/score');
     };
 
-    return (
+    return isLoading ? <LinearBuffer /> : (
         <Grid container>
             <Stack alignContent="center" flexDirection="column" sx={{ width: "100%" }}>
                 <Box>
