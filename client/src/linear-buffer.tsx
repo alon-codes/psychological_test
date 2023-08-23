@@ -32,7 +32,7 @@ export default function LinearBuffer() {
   }, []);
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: '100%', marginY: 2 }}>
       <LinearProgress variant="buffer" value={progress} valueBuffer={buffer} />
     </Box>
   );
