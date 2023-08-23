@@ -3,13 +3,19 @@ import { AppModule } from './app.module';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { cors: true });
+  const app = await NestFactory.create(AppModule);
 
   const config = new DocumentBuilder()
     .setTitle('Quiz API documention')
     .setDescription('Quiz API documention')
     .setVersion('1.0')
     .build();
+
+  app.enableCors({
+    //methods: ['GET', 'PUT', 'POST', 'PATCH', 'OPTIONS', 'HEAD'],
+    origin: ['https://psychological-test-react-client.vercel.app'],
+    preflightContinue: true,
+  });
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
