@@ -26,8 +26,12 @@ const router = createBrowserRouter([
     },
 ]);
 
-export default function Main() {
+const AppRouter = function () {
     const loading = useRecoilValue(isLoadingState);
+    return loading ? <LinearBuffer /> : <RouterProvider router={router} />;
+}
+
+export default function Main() {
 
     return (
         <React.StrictMode>
@@ -35,9 +39,7 @@ export default function Main() {
                 <Container maxWidth="md">
                     <CssBaseline />
                     <Header />
-                    {loading ? <LinearBuffer /> :
-                        <RouterProvider router={router} />
-                    }
+                    <AppRouter />
                 </Container>
             </RecoilRoot>
         </React.StrictMode>
