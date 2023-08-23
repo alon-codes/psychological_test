@@ -1,8 +1,8 @@
 import { Grid, LinearProgress, Typography } from "@mui/material";
 import React, { useCallback, useEffect, useState } from "react";
 import axios from 'axios';
-import { useRecoilCallback, useRecoilRefresher_UNSTABLE, useRecoilValue, useResetRecoilState } from "recoil";
-import { questionIndexState, repliesIdsState, repliesSelector, repliesState } from "../state/quiz-data";
+import { useRecoilCallback, useRecoilRefresher_UNSTABLE, useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
+import { isLoadingState, questionIndexState, repliesIdsState, repliesSelector, repliesState } from "../state/quiz-data";
 
 enum Values {
     uknonwn = 'uknonwn',
@@ -14,7 +14,7 @@ enum Values {
 export default function Score() {
 
     const replies = useRecoilValue(repliesSelector);
-    const [loading, setLoading] = useState<boolean>(true);
+    const [,setLoading] = useRecoilState<boolean>(isLoadingState);
     const [score, setScore] = useState<Values>(Values.uknonwn);
 
     // TODO - consider to export to different file
@@ -32,6 +32,7 @@ export default function Score() {
         const fetchData = async () => {
             if (!!replies.length) {
                 try {
+                    setLoading(true);
                     const { data } = await axios.post(import.meta.env.VITE_SERVER_URL + '/quiz/submit/', {
                         replies
                     });
@@ -53,14 +54,9 @@ export default function Score() {
 
     return (
         <Grid container py={4}>
-
-            {!!loading ? (
-                <LinearProgress />
-            ) : (
-                <Typography variant="h5">
-                    <b>Score:</b> {score}
-                </Typography>
-            )}
+            <Typography variant="h5">
+                <b>Score:</b> {score}
+            </Typography>
         </Grid>
     );
 }

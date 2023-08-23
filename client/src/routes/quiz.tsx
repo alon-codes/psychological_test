@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Typography, Container, Grid, List, ListItemButton, Button, Stack, Box } from '@mui/material';
 import { indexToLetter } from '../utils';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { currentQuestionSelector, questionIndexState, questionsState, repliesIdsState, repliesState } from '../state/quiz-data';
+import { currentQuestionSelector, isLoadingState, questionIndexState, questionsState, repliesIdsState, repliesState } from '../state/quiz-data';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 import LinearBuffer from '../linear-buffer';
@@ -16,7 +16,7 @@ export default function Quiz() {
     const navigate = useNavigate();
     const [repliesIds, setIds] = useRecoilState(repliesIdsState);
 
-    const [isLoading, setLoading] = useState<boolean>(false);
+    const [,setLoading] = useRecoilState<boolean>(isLoadingState);
 
     useEffect(() => {
         async function fetchQuestions() {
@@ -69,7 +69,7 @@ export default function Quiz() {
         navigate('/score');
     };
 
-    return isLoading ? <LinearBuffer /> : (
+    return (
         <Grid container>
             <Stack alignContent="center" flexDirection="column" sx={{ width: "100%" }}>
                 <Box>
@@ -112,5 +112,5 @@ export default function Quiz() {
             </Container>
 
         </Grid>
-    )
+    );
 }

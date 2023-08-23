@@ -1,10 +1,14 @@
 import { atom, atomFamily, selector, selectorFamily } from 'recoil';
 
 // Replies - Map<question_id, answer_id> - AtomFamily
-
 export const repliesState = atomFamily<ReplyType, string>({
     key: "quiz/replies",
     default: {}
+});
+
+export const isLoadingState = atom({
+    key: "quiz/isLoading",
+    default: false
 });
 
 export const repliesIdsState = atom<string[]>({
