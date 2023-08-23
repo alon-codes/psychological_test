@@ -64,6 +64,9 @@ export class QuizController {
         const currentQuestion = await this.questionService.getQuestionById(
           currentReply.question_id,
         );
+        if (!currentAnswer || !currentQuestion) {
+          continue;
+        }
         score += currentAnswer.points;
         console.log({ currentAnswer });
         quizTotalSum += currentQuestion.options.length || 0;
