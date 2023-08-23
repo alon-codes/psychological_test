@@ -14,10 +14,9 @@ async function bootstrap() {
   app.enableCors({
     methods: ['GET', 'PUT', 'POST', 'PATCH', 'OPTIONS', 'HEAD'],
     origin: ['https://psychological-test-react-client.vercel.app'],
-    secure: true,
-    preflightContinue: true
+    preflightContinue: true,
   });
-  
+
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
 
