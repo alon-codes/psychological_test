@@ -21,7 +21,7 @@ export default function Quiz() {
 
     useEffect(() => {
         resetQuestions();
-        
+
         async function fetchQuestions() {
             try {
 
@@ -104,7 +104,7 @@ export default function Quiz() {
                     <Button onClick={e => prevQuestion()} variant="text">Prev question</Button>
                 )}
                 {currentIndex !== questions.length - 1 ? (
-                    <Button disabled={!currentReply.selected_answer_id || !!isLoading} fullWidth={currentIndex === 0} onClick={e => nextQuestion()} variant="text">
+                    <Button disableRipple disabled={!currentReply.selected_answer_id || !!isLoading} fullWidth={currentIndex === 0} onClick={e => nextQuestion()} color="info" variant="contained">
                         Next question
                     </Button>
                 ) : (

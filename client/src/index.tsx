@@ -13,6 +13,7 @@ import LinearBuffer from './linear-buffer';
 import Fab from '@mui/material/Fab';
 import IntegrationInstructionsIcon from '@mui/icons-material/IntegrationInstructions';
 import { blue, blueGrey } from '@mui/material/colors';
+import { Link, Stack, Typography } from '@mui/material';
 
 export function MainLayout() {
     const isLoading = useRecoilValue(isLoadingState);
@@ -41,11 +42,15 @@ export default function Main() {
                         </Route>
                     </Routes>
                     <Fab
-                        onClick={e => window.open('https://github.com/alon-codes/psychological_test', '_blank')}
                         style={{ position: 'fixed', right: 10, bottom: 10}} aria-label="like">
-                        <IntegrationInstructionsIcon color="primary" />
+                        <Link target="_blank" href="https://github.com/alon-codes/psychological_test"><IntegrationInstructionsIcon sx={{ marginTop: 1, height: 40 }} color="primary" /></Link>
                     </Fab>
+                    <Stack marginY={2}>
+                        <Typography textAlign="center" variant='caption'>Created by <Link target="_blank" href="https://github.com/alon-codes">@alon-codes</Link></Typography>
+                    </Stack>
+                    
                 </Container>
+                
             </RecoilRoot>
         </React.StrictMode>
     );
