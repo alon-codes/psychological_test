@@ -12,10 +12,16 @@ enum Values {
     extroverted = 'extroverted'
 }
 
+enum ScoreText {
+    ambivert = `Results in: You're an Ambivert! Sometimes you're up for karaoke, and sometimes the only duet you want is with your bed. And that's perfectly cool!`,
+    introverted = `Congrats! You're Team Introvert. You might not start the conga line at parties, but you've got that mysterious vibe down to a science.`,
+    extroverted = `You're an Extrovert! Bet you've never met a karaoke night you didn't like!`
+}
+
 export default function Score() {
 
     const replies = useRecoilValue(repliesSelector);
-    const [isLoading,setLoading] = useRecoilState<boolean>(isLoadingState);
+    const [isLoading, setLoading] = useRecoilState<boolean>(isLoadingState);
     const [score, setScore] = useState<Values>(Values.uknonwn);
     const navigate = useNavigate();
 
@@ -39,7 +45,7 @@ export default function Score() {
                         replies
                     });
 
-                    if(!!data){
+                    if (!!data) {
                         setScore(data.score)
                     }
                     setLoading(false);
@@ -59,7 +65,10 @@ export default function Score() {
     return (
         <Grid container py={4}>
             <Typography variant="h5">
-                {!!score && !isLoading ? <Typography><b>Score:</b> {score}</Typography> : <Typography textAlign="center">Calculating your score...</Typography> }
+                {!!score && !isLoading ? <Typography><b>Score:</b> {score}</Typography> : <Typography textAlign="center">Calculating your score...</Typography>}
+            </Typography>
+            <Typography variant="caption">
+                {!!score && !isLoading ? ScoreText[score] : ""}
             </Typography>
         </Grid>
     );
