@@ -1,7 +1,7 @@
 import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Typography, Container, Grid, List, ListItemButton, Button, Stack, Box } from '@mui/material';
 import { indexToLetter } from '../utils';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue, useResetRecoilState } from 'recoil';
 import { currentQuestionSelector, isLoadingState, questionIndexState, questionsState, repliesIdsState, repliesState } from '../state/quiz-data';
 import { useNavigate } from "react-router-dom";
 import axios from 'axios';
@@ -9,6 +9,7 @@ import LinearBuffer from '../linear-buffer';
 
 export default function Quiz() {
     const [questions, setQuestions] = useRecoilState(questionsState);
+    const resetQuestions = useResetRecoilState(questionsState);
     const currentQuestion = useRecoilValue<QuestionType | undefined>(currentQuestionSelector);
     console.log({ currentQuestion });
     const [currentIndex, setCurrentIndex] = useRecoilState<number>(questionIndexState);
@@ -16,18 +17,22 @@ export default function Quiz() {
     const navigate = useNavigate();
     const [repliesIds, setIds] = useRecoilState(repliesIdsState);
 
-    const [,setLoading] = useRecoilState<boolean>(isLoadingState);
+    const [isLoading,setLoading] = useRecoilState<boolean>(isLoadingState);
 
-    useLayoutEffect(() => {
+    useEffect(() => {
+        resetQuestions();
+        
         async function fetchQuestions() {
             try {
+
                 setLoading(true);
                 const resposne = await axios.get(import.meta.env.VITE_SERVER_URL + "/quiz/");
                 console.log({ resposne });
+                setLoading(false);
                 if (!!resposne.data) {
                     setQuestions(resposne.data)
                 }
-                setLoading(false);
+                
             }
             catch (e) {
 
@@ -71,7 +76,7 @@ export default function Quiz() {
 
     return (
         <Grid container>
-            <Stack alignContent="center" flexDirection="column" sx={{ width: "100%" }}>
+            { !isLoading && <Stack alignContent="center" flexDirection="column" sx={{ width: "100%" }}>
                 <Box>
                     <Typography variant="body2">
                         {`${currentIndex + 1}/${questions.length}`}
@@ -82,8 +87,7 @@ export default function Quiz() {
                         {currentQuestion?.title}
                     </Typography>
                 </Box>
-
-            </Stack>
+            </Stack> }
 
             <List sx={{ width: "100%" }}>
                 {currentQuestion?.options?.map((currentAnswer, index) => (
@@ -100,11 +104,11 @@ export default function Quiz() {
                     <Button onClick={e => prevQuestion()} variant="text">Prev question</Button>
                 )}
                 {currentIndex !== questions.length - 1 ? (
-                    <Button disabled={!currentReply.selected_answer_id} fullWidth={currentIndex === 0} onClick={e => nextQuestion()} variant="text">
+                    <Button disabled={!currentReply.selected_answer_id || !!isLoading} fullWidth={currentIndex === 0} onClick={e => nextQuestion()} variant="text">
                         Next question
                     </Button>
                 ) : (
-                    <Button fullWidth={currentIndex === 0} onClick={e => submitQuiz()} variant="text">
+                    <Button disabled={!!isLoading} fullWidth={currentIndex === 0} onClick={e => submitQuiz()} variant="text">
                         Submit
                     </Button>
                 )}
