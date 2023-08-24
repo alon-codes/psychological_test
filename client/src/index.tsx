@@ -10,6 +10,9 @@ import Header from './header';
 import HomeRoute from './routes/home';
 import { isLoadingState } from './state/quiz-data';
 import LinearBuffer from './linear-buffer';
+import Fab from '@mui/material/Fab';
+import IntegrationInstructionsIcon from '@mui/icons-material/IntegrationInstructions';
+import { blue, blueGrey } from '@mui/material/colors';
 
 export function MainLayout() {
     const isLoading = useRecoilValue(isLoadingState);
@@ -17,7 +20,7 @@ export function MainLayout() {
         <Container maxWidth="md">
             <CssBaseline />
             <Header />
-            { isLoading && <LinearBuffer /> }
+            {isLoading && <LinearBuffer />}
             <Outlet />
         </Container>
     );
@@ -37,6 +40,11 @@ export default function Main() {
                             <Route path="/score" element={<Score />} />
                         </Route>
                     </Routes>
+                    <Fab
+                        onClick={e => window.open('https://github.com/alon-codes/psychological_test', '_blank')}
+                        style={{ position: 'fixed', right: 10, bottom: 10}} aria-label="like">
+                        <IntegrationInstructionsIcon color="primary" />
+                    </Fab>
                 </Container>
             </RecoilRoot>
         </React.StrictMode>
