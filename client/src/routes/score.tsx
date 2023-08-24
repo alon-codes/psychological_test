@@ -59,7 +59,7 @@ export default function Score() {
     return (
         <Grid container py={4}>
             <Typography variant="h5">
-                {!!score && !isLoading ? <Typography fontWeight={800}>Score: {score}</Typography> : <Typography textAlign="center">Calculating your score...</Typography> }
+                {!!score && !isLoading ? <Typography><b>Score:</b> {score}</Typography> : <Typography textAlign="center">Calculating your score...</Typography> }
             </Typography>
         </Grid>
     );
