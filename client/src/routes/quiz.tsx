@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useLayoutEffect, useState } from 'react';
 import { Typography, Container, Grid, List, ListItemButton, Button, Stack, Box } from '@mui/material';
 import { indexToLetter } from '../utils';
 import { useRecoilState, useRecoilValue } from 'recoil';
@@ -18,7 +18,7 @@ export default function Quiz() {
 
     const [,setLoading] = useRecoilState<boolean>(isLoadingState);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         async function fetchQuestions() {
             try {
                 setLoading(true);
