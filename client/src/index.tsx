@@ -3,7 +3,7 @@ import React from 'react';
 import Quiz from './routes/quiz';
 import ReactDOM from 'react-dom/client';
 import { RecoilRoot, useRecoilValue } from 'recoil';
-import { BrowserRouter, createBrowserRouter, Outlet, Route, Router, RouterProvider, Routes } from 'react-router-dom';
+import { BrowserRouter, createBrowserRouter, HashRouter, MemoryRouter, Outlet, Route, Router, RouterProvider, Routes } from 'react-router-dom';
 import Score from './routes/score';
 import { Container } from '@mui/system';
 import Header from './header';
@@ -48,7 +48,7 @@ const root = ReactDOM.createRoot(
 );
 
 root.render((
-    <BrowserRouter>
+    <HashRouter>
         <Main />
-    </BrowserRouter>
+    </HashRouter>
 ));

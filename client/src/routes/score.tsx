@@ -3,6 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import axios from 'axios';
 import { useRecoilCallback, useRecoilRefresher_UNSTABLE, useRecoilState, useRecoilValue, useResetRecoilState } from "recoil";
 import { isLoadingState, questionIndexState, repliesIdsState, repliesSelector, repliesState } from "../state/quiz-data";
+import { useNavigate } from "react-router";
 
 enum Values {
     uknonwn = 'uknonwn',
@@ -14,8 +15,9 @@ enum Values {
 export default function Score() {
 
     const replies = useRecoilValue(repliesSelector);
-    const [,setLoading] = useRecoilState<boolean>(isLoadingState);
+    const [isLoading,setLoading] = useRecoilState<boolean>(isLoadingState);
     const [score, setScore] = useState<Values>(Values.uknonwn);
+    const navigate = useNavigate();
 
     // TODO - consider to export to different file
     const resetQuiz = useRecoilCallback(({ snapshot, reset, set }) => () => {
@@ -46,6 +48,8 @@ export default function Score() {
                 catch (e) {
 
                 }
+            } else {
+                navigate('/quiz');
             }
         }
 
@@ -55,7 +59,7 @@ export default function Score() {
     return (
         <Grid container py={4}>
             <Typography variant="h5">
-                <b>Score:</b> {score}
+                {!!score && !isLoading ? <Typography fontWeight={800}>Score: {score}</Typography> : <Typography textAlign="center">Calculating your score...</Typography> }
             </Typography>
         </Grid>
     );
