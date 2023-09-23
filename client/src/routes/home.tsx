@@ -11,7 +11,7 @@ export default function HomeRoute(){
             <Typography paddingY={2} paragraph variant="body2">
                 It's important to keep in mind that introversion and extraversion are not black-and-white categories, but rather a spectrum.
             </Typography>
-            <Button onClick={e => navigate('/quiz')} sx={{ marginY: 6}} variant="contained">Start</Button>
+            <Button color="primary" onClick={e => navigate('/quiz')} sx={{ marginY: 6}} variant="contained">Start</Button>
         </Stack>
     );
 }

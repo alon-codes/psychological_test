@@ -28,6 +28,7 @@
     "react-router": "^6.9.0",
     "react-router-dom": "^6.9.0",
     "recoil": "^0.7.7",
-    "uuid": "^9.0.0"
+    "uuid": "^9.0.0",
+    "vite-ssr": "^0.17.1"
   }
 }
